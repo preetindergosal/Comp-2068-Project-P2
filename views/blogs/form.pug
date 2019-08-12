@@ -1,0 +1,21 @@
+form(action=(beer ? `/beers/update` : "/beers"), method="POST")
+  if beer
+    input(type="hidden", name="id", value=beer.id)
+
+  .form-group
+    label Title
+    input.form-control(name="beer[title]", required, value=(beer ? beer.title : null))
+
+  .form-group
+    label Content
+    textarea.form-control(name="beer[content]")
+      = beer ? beer.title : null
+
+  .form-group
+    label Status
+    select.form-control(name="beer[status]", required)
+      each status in ['DRAFT', 'PUBLISHED']
+        option(value=status, selected=(beer && beer.status === status ? true : false))= status.toLowerCase()
+  
+  .form-group
+    button.btn.btn-dark(type="submit") Submit

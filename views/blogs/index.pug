@@ -1,0 +1,29 @@
+extends ../layouts/main.pug
+block content
+  .container
+    header
+      h1= title
+
+    div
+      table.table.table-striped
+        thead
+          tr
+            th Title
+            th Status
+            th Author
+            th
+        
+        tbody
+          each beers in beers
+            tr
+              td
+                a(href=`/beers/${beers.id}`)= beers.title
+              td= beers.status
+              td= `${beers.author.firstName} ${beers.author.lastName}`
+              td
+                a(href=`/beers/${beers.id}/edit`) edit
+                = ` | `
+                form.destroy(action=`/beers/destroy`, method="POST")
+                  input(type="hidden", name="id", value=`${beers.id}`)
+                  input.destroy(type="submit", value="destroy")
+          
